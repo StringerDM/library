@@ -1,4 +1,4 @@
-﻿CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -23,6 +23,7 @@ CREATE TABLE books (
     rent_one_month_price NUMERIC(10,2),
     rent_three_months_price NUMERIC(10,2),
     status VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE',
+    CONSTRAINT uq_books_title_author UNIQUE (title, author),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ
 );
