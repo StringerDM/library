@@ -1,7 +1,7 @@
 ﻿INSERT INTO users (id, username, email, password_hash, role, created_at)
 VALUES
-    (gen_random_uuid(), 'librarian', 'admin@library.local', '$2a$10$7EqJtq98hPqEX7fNZaFWoO5fJemG41Zsa1onbI5orxT4q7/Xr5OW.', 'ADMIN', NOW()),
-    (gen_random_uuid(), 'reader', 'reader@library.local', '$2a$10$7EqJtq98hPqEX7fNZaFWoO5fJemG41Zsa1onbI5orxT4q7/Xr5OW.', 'USER', NOW())
+    (gen_random_uuid(), 'librarian', 'admin@library.local', '$2a$10$BgkwupVsbs1DE4xfHPjE2.XgHO18RZZ99JuZ5BK36TKydkEG8czN2', 'ADMIN', NOW()),
+    (gen_random_uuid(), 'reader', 'reader@library.local', '$2a$10$BgkwupVsbs1DE4xfHPjE2.XgHO18RZZ99JuZ5BK36TKydkEG8czN2', 'USER', NOW())
 ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO books (id, title, author, category, year, description, cover_url,
