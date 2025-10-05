@@ -92,7 +92,7 @@ export default function Catalog() {
             setBooks(prev => (append ? [...prev, ...data.items] : data.items))
         } catch (err) {
             console.error(err)
-            setError('РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РєР°С‚Р°Р»РѕРі')
+            setError('Не удалось загрузить каталог')
         } finally {
             setLoading(false)
         }
@@ -115,7 +115,7 @@ export default function Catalog() {
             setDetails(prev => ({ ...prev, [bookId]: data }))
         } catch (err) {
             console.error(err)
-            setError('РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РѕРїРёСЃР°РЅРёРµ РєРЅРёРіРё')
+            setError('Не удалось загрузить описание книги')
         }
     }
 
@@ -128,14 +128,14 @@ export default function Catalog() {
                 headers: { 'Content-Type': 'application/json' },
             })
             const message = type === 'PURCHASE'
-                ? `РљРЅРёРіР° В«${book.title}В» РґРѕР±Р°РІР»РµРЅР° РІ РІР°С€Рё РїРѕРєСѓРїРєРё`
-                : `РђСЂРµРЅРґР° РєРЅРёРіРё В«${book.title}В» СѓСЃРїРµС€РЅРѕ РѕС„РѕСЂРјР»РµРЅР°`
+                ? `Книга «${book.title}» добавлена в ваши покупки`
+                : `Аренда книги «${book.title}» успешно оформлена`
             setActionMessage(message)
         } catch (err) {
             if (err instanceof ApiError) {
                 setActionMessage(err.message)
             } else {
-                setActionMessage('РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ РѕРїРµСЂР°С†РёСЋ')
+                setActionMessage('Не удалось выполнить операцию')
             }
         }
     }
@@ -145,56 +145,56 @@ export default function Catalog() {
     return (
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
             <section className="space-y-5">
-                <h1 className="text-2xl font-semibold text-slate-800">РљР°С‚Р°Р»РѕРі РєРЅРёРі</h1>
+                <h1 className="text-2xl font-semibold text-slate-800">Каталог книг</h1>
                 <div className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">РљР°С‚РµРіРѕСЂРёСЏ</label>
+                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Категория</label>
                         <select
                             className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
                             value={filters.category}
                             onChange={e => handleFilterChange('category', e.target.value)}
                         >
-                            <option value="">Р’СЃРµ РєР°С‚РµРіРѕСЂРёРё</option>
+                            <option value="">Все категории</option>
                             {categories.map(category => (
                                 <option key={category} value={category}>{category}</option>
                             ))}
                         </select>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">РђРІС‚РѕСЂ</label>
+                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Автор</label>
                         <select
                             className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
                             value={filters.author}
                             onChange={e => handleFilterChange('author', e.target.value)}
                         >
-                            <option value="">Р’СЃРµ Р°РІС‚РѕСЂС‹</option>
+                            <option value="">Все авторы</option>
                             {authors.map(author => (
                                 <option key={author} value={author}>{author}</option>
                             ))}
                         </select>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Р“РѕРґ</label>
+                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Год</label>
                         <input
                             type="number"
                             min="1800"
                             max="2100"
-                            placeholder="РќР°РїСЂРёРјРµСЂ, 2021"
+                            placeholder="Например, 2021"
                             value={filters.year}
                             onChange={e => handleFilterChange('year', e.target.value)}
                             className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">РЎРѕСЂС‚РёСЂРѕРІРєР°</label>
+                        <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">Сортировка</label>
                         <select
                             className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
                             value={filters.sort}
                             onChange={e => handleFilterChange('sort', e.target.value as Filters['sort'])}
                         >
-                            <option value="title">РџРѕ РЅР°Р·РІР°РЅРёСЋ</option>
-                            <option value="author">РџРѕ Р°РІС‚РѕСЂСѓ</option>
-                            <option value="year">РџРѕ РіРѕРґСѓ</option>
+                            <option value="title">По названию</option>
+                            <option value="author">По автору</option>
+                            <option value="year">По году</option>
                         </select>
                     </div>
                 </div>
@@ -212,17 +212,17 @@ export default function Catalog() {
                                 <div className="space-y-1">
                                     <h3 className="text-lg font-semibold text-slate-800">{book.title}</h3>
                                     <p className="text-sm text-slate-600">{book.author}</p>
-                                    <p className="text-xs text-slate-500">{book.category} В· {book.year}</p>
+                                    <p className="text-xs text-slate-500">{book.category} · {book.year}</p>
                                 </div>
                             </div>
                             <div className="mt-4 space-y-3">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="font-medium text-slate-700">РџРѕРєСѓРїРєР°</span>
-                                    <span className="text-slate-600">{book.purchasePrice ? `${book.purchasePrice.toFixed(2)} в‚Ѕ` : 'вЂ”'}</span>
+                                    <span className="font-medium text-slate-700">Покупка</span>
+                                    <span className="text-slate-600">{book.purchasePrice ? `${book.purchasePrice.toFixed(2)} ₽` : '—'}</span>
                                 </div>
                                 <div className="flex flex-wrap gap-2 text-xs text-slate-500">
                                     <span className={`rounded-full px-2 py-1 ${book.status === 'AVAILABLE' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'}`}>
-                                        {book.status === 'AVAILABLE' ? 'Р”РѕСЃС‚СѓРїРЅР°' : book.status === 'UNAVAILABLE' ? 'РќРµРґРѕСЃС‚СѓРїРЅР°' : 'РђСЂС…РёРІ'}
+                                        {book.status === 'AVAILABLE' ? 'Доступна' : book.status === 'UNAVAILABLE' ? 'Недоступна' : 'Архив'}
                                     </span>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
@@ -231,14 +231,14 @@ export default function Catalog() {
                                         disabled={!user || book.status !== 'AVAILABLE'}
                                         onClick={() => handleOrder(book, 'PURCHASE')}
                                     >
-                                        РљСѓРїРёС‚СЊ
+                                        Купить
                                     </button>
                                     <button
                                         className="rounded-lg border border-slate-200 px-3 py-1 text-sm text-slate-600 transition hover:border-emerald-400 hover:text-emerald-700 disabled:opacity-40"
                                         disabled={!user || book.status !== 'AVAILABLE'}
                                         onClick={() => setSelectedId(prev => prev === book.id ? null : (void loadDetails(book.id), book.id))}
                                     >
-                                        РџРѕРґСЂРѕР±РЅРµРµ
+                                        Подробнее
                                     </button>
                                 </div>
                             </div>
@@ -253,23 +253,23 @@ export default function Catalog() {
                             onClick={() => loadPage(page + 1, true)}
                             disabled={loading}
                         >
-                            {loading ? 'Р—Р°РіСЂСѓР·РєР°...' : 'РџРѕРєР°Р·Р°С‚СЊ РµС‰С‘'}
+                            {loading ? 'Загрузка...' : 'Показать ещё'}
                         </button>
                     </div>
                 )}
 
-                {!loading && books.length === 0 && <p className="text-sm text-slate-500">РџРѕ РІС‹Р±СЂР°РЅРЅС‹Рј С„РёР»СЊС‚СЂР°Рј РЅРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ.</p>}
+                {!loading && books.length === 0 && <p className="text-sm text-slate-500">По выбранным фильтрам ничего не найдено.</p>}
             </section>
 
             <aside className="space-y-4">
                 <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h2 className="text-lg font-semibold text-slate-800">РђСЂРµРЅРґР°</h2>
+                    <h2 className="text-lg font-semibold text-slate-800">Аренда</h2>
                     <p className="mt-2 text-sm text-slate-600">
-                        Р’С‹Р±РµСЂРёС‚Рµ РєРЅРёРіСѓ Рё РѕС„РѕСЂРјРёС‚Рµ Р°СЂРµРЅРґСѓ РЅР° СѓРґРѕР±РЅС‹Р№ СЃСЂРѕРє. РЎС‚РѕРёРјРѕСЃС‚СЊ С„РёРєСЃРёСЂРѕРІР°РЅР° РґР»СЏ 2 РЅРµРґРµР»СЊ, 1 РёР»Рё 3 РјРµСЃСЏС†РµРІ.
+                        Выберите книгу и оформите аренду на удобный срок. Стоимость фиксирована для 2 недель, 1 или 3 месяцев.
                     </p>
                     {!user && (
                         <p className="mt-3 text-sm text-emerald-700">
-                            РђРІС‚РѕСЂРёР·СѓР№С‚РµСЃСЊ, С‡С‚РѕР±С‹ РїРѕРєСѓРїР°С‚СЊ Рё Р±СЂР°С‚СЊ РєРЅРёРіРё РІ Р°СЂРµРЅРґСѓ.
+                            Авторизуйтесь, чтобы покупать и брать книги в аренду.
                         </p>
                     )}
                 </div>
@@ -280,9 +280,9 @@ export default function Catalog() {
                             <div>
                                 <h3 className="text-lg font-semibold text-emerald-800">{selectedBook.title}</h3>
                                 <p className="text-sm text-emerald-700">{selectedBook.author}</p>
-                                <p className="text-xs text-emerald-600">{selectedBook.category} В· {selectedBook.year}</p>
+                                <p className="text-xs text-emerald-600">{selectedBook.category} · {selectedBook.year}</p>
                             </div>
-                            <button className="text-xs text-emerald-700" onClick={() => setSelectedId(null)}>Г—</button>
+                            <button className="text-xs text-emerald-700" onClick={() => setSelectedId(null)}>×</button>
                         </div>
                         {selectedBook.description && (
                             <p className="mt-3 text-sm leading-6 text-emerald-900">
@@ -291,16 +291,16 @@ export default function Catalog() {
                         )}
                         <dl className="mt-4 space-y-2 text-sm text-emerald-800">
                             <div className="flex items-center justify-between">
-                                <dt>РђСЂРµРЅРґР° РЅР° 2 РЅРµРґРµР»Рё</dt>
-                                <dd>{selectedBook.rentTwoWeeks ? `${selectedBook.rentTwoWeeks.toFixed(2)} в‚Ѕ` : 'вЂ”'}</dd>
+                                <dt>Аренда на 2 недели</dt>
+                                <dd>{selectedBook.rentTwoWeeks ? `${selectedBook.rentTwoWeeks.toFixed(2)} ₽` : '—'}</dd>
                             </div>
                             <div className="flex items-center justify-between">
-                                <dt>РђСЂРµРЅРґР° РЅР° 1 РјРµСЃСЏС†</dt>
-                                <dd>{selectedBook.rentOneMonth ? `${selectedBook.rentOneMonth.toFixed(2)} в‚Ѕ` : 'вЂ”'}</dd>
+                                <dt>Аренда на 1 месяц</dt>
+                                <dd>{selectedBook.rentOneMonth ? `${selectedBook.rentOneMonth.toFixed(2)} ₽` : '—'}</dd>
                             </div>
                             <div className="flex items-center justify-between">
-                                <dt>РђСЂРµРЅРґР° РЅР° 3 РјРµСЃСЏС†Р°</dt>
-                                <dd>{selectedBook.rentThreeMonths ? `${selectedBook.rentThreeMonths.toFixed(2)} в‚Ѕ` : 'вЂ”'}</dd>
+                                <dt>Аренда на 3 месяца</dt>
+                                <dd>{selectedBook.rentThreeMonths ? `${selectedBook.rentThreeMonths.toFixed(2)} ₽` : '—'}</dd>
                             </div>
                         </dl>
                         <div className="mt-4 flex flex-wrap gap-2">
@@ -309,21 +309,21 @@ export default function Catalog() {
                                 disabled={!user || selectedBook.status !== 'AVAILABLE'}
                                 onClick={() => handleOrder(selectedBook, 'RENT_TWO_WEEKS')}
                             >
-                                2 РЅРµРґРµР»Рё
+                                2 недели
                             </button>
                             <button
                                 className="rounded-lg bg-emerald-500 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:opacity-60"
                                 disabled={!user || selectedBook.status !== 'AVAILABLE'}
                                 onClick={() => handleOrder(selectedBook, 'RENT_ONE_MONTH')}
                             >
-                                1 РјРµСЃСЏС†
+                                1 месяц
                             </button>
                             <button
                                 className="rounded-lg bg-emerald-400 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-emerald-500 disabled:opacity-60"
                                 disabled={!user || selectedBook.status !== 'AVAILABLE'}
                                 onClick={() => handleOrder(selectedBook, 'RENT_THREE_MONTHS')}
                             >
-                                3 РјРµСЃСЏС†Р°
+                                3 месяца
                             </button>
                         </div>
                     </div>

@@ -22,8 +22,8 @@ docker compose up --build
 
 Сервисы:
 - БД PostgreSQL: порт `5432` (пользователь/БД/пароль `library`).
-- Backend: `http://localhost:8080`.
-- Frontend (nginx): `http://localhost:3000`.
+- Backend: `http://localhost:8088`.
+- Frontend (nginx): `http://localhost:8080`.
 
 Команда остановки и очистки данных:
 ```bash
