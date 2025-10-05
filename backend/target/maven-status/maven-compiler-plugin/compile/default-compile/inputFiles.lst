@@ -16,6 +16,7 @@ D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\book\Boo
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\book\BookStatusUpdateRequest.java
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\common\ResourceNotFoundException.java
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\common\RestExceptionHandler.java
+D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\config\HttpLoggingFilter.java
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\config\SecurityConfig.java
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\health\HealthController.java
 D:\projects\synergy\library\backend\src\main\java\ru\synergy\libraryapp\LibraryAppApplication.java

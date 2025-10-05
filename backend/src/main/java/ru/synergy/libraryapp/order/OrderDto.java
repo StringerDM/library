@@ -1,7 +1,5 @@
 package ru.synergy.libraryapp.order;
 
-import ru.synergy.libraryapp.book.BookDetailsDto;
-
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
